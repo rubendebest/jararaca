@@ -1,0 +1,94 @@
+# Generic queues and topics configs
+default:
+  topics:
+    env: staging
+    raw_message: true
+    region: eu-west-1
+  queues:
+    deadletter: true
+    env: staging
+    max_receive_count: 7
+    message_retention_period: 1209600
+    region: eu-west-1
+    visibility_timeout: 60
+
+# Specific topic configs per project.
+topic_configs:
+- project: project_a
+  region: eu-central-1
+- project: project_b
+
+# Specific queue configs per project.
+queue_configs:
+- project: project_a
+  region: eu-central-1
+- project: project_c
+- project: project_d
+- project: project_e
+
+# Topics per project.
+all_topics:
+- project: project_a
+  topics:
+  - name: event_a
+  - name: event_b
+- project: project_b
+  topics:
+  - name: event_c
+
+# Queues per project
+all_queues:
+- project: project_a
+  queues:
+  - name: queue_a
+    visibility_timeout: 120
+  - name: queue_b
+  - name: queue_c
+  - name: queue_d
+- project: project_c
+  queues:
+  - name: queue_g
+    maximum_receive_count: 1
+- project: project_d
+  queues:
+  - name: queue_e
+    message_retention_period: 14400
+- project: project_e
+  queues:
+  - name: queue_f
+
+# Subscriptions
+all_subscriptions:
+- topic_project: project_a
+  topics:
+  - name: event_a
+    subscriptions:
+    - queue_project: project_a
+      queues:
+      - queue_a
+      - queue_b
+      - queue_c
+    - queue_project: project_c
+      queues:
+      - queue_g
+    - queue_project: project_d
+      queues:
+      - queue_e
+    - queue_project: project_e
+      queues:
+      - queue_f
+  - name: event_b
+    subscriptions:
+    - queue_project: project_a
+      queues:
+      - queue_d
+    - queue_project: project_c
+      queues:
+      - queue_g
+- topic_project: project_b
+  topics:
+  - name: event_c
+    subscriptions:
+    - queue_project: project_e
+      queues:
+      - queue_f

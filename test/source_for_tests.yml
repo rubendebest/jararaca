@@ -1,0 +1,112 @@
+default:
+  # Topic configs for all topics.
+  topics:
+    env: default_sns_env
+    raw_message: false
+    region: default_sns_region
+  # Queue configs for all queues.
+  queues:
+    deadletter: false
+    env: default_sqs_env
+    max_receive_count: 7
+    message_retention_period: 1209600
+    region: default_sqs_region
+    visibility_timeout: 60
+
+# Topic configs per project
+topic_configs:
+- project: project_with_defaults
+- project: project_with_custom_env
+  env: custom_sns_env
+- project: project_with_custom_raw_message
+  raw_message: true
+- project: project_with_custom_region
+  region: custom_sns_region
+
+# Queue configs per project
+queue_configs:
+- project: project_with_defaults
+- project: project_with_custom_deadletter
+  deadletter: true
+- project: project_with_custom_env
+  env: custom_sqs_env
+- project: project_with_custom_max_receive_count
+  max_receive_count: 1000
+- project: project_with_custom_message_retention_period
+  message_retention_period: 1234
+- project: project_with_custom_region
+  region: custom_sqs_region
+- project: project_with_custom_visibility_timeout
+  visibility_timeout: 120
+
+# Topics per project.
+all_topics:
+- project: project_with_defaults
+  topics:
+  - name: topic_with_defaults
+- project: project_with_custom_env
+  topics:
+  - name: topic_with_project_env
+- project: project_with_custom_region
+  topics:
+  - name: topic_with_project_region
+- project: project_with_custom_raw_message
+  topics:
+  - name: topic_with_project_raw_message
+  - name: topic_with_custom_raw_message
+    raw_message: false
+
+# Queues per project
+all_queues:
+- project: project_with_defaults
+  queues:
+  - name: queue_with_defaults
+- project: project_with_custom_env
+  queues:
+  - name: queue_with_project_env
+- project: project_with_custom_region
+  queues:
+  - name: queue_with_project_region
+- project: project_with_custom_max_receive_count
+  queues:
+  - name: queue_with_project_max_receive_count
+  - name: queue_with_custom_max_receive_count
+    max_receive_count: 500
+- project: project_with_custom_message_retention_period
+  queues:
+  - name: queue_with_project_message_retention_period
+  - name: queue_with_custom_message_retention_period
+    message_retention_period: 2345
+- project: project_with_custom_visibility_timeout
+  queues:
+  - name: queue_with_project_visibility_timeout
+  - name: queue_with_custom_visibility_timeout
+    visibility_timeout: 600
+
+# Subscriptions
+all_subscriptions:
+- topic_project: project_with_defaults
+  topics:
+  - name: topic_with_defaults
+    subscriptions:
+    - queue_project: project_with_defaults
+      queues:
+      - queue_with_defaults
+- topic_project: project_with_custom_raw_message
+  topics:
+  - name: topic_with_project_raw_message
+    subscriptions:
+    - queue_project: project_with_custom_max_receive_count
+      queues:
+      - queue_with_project_max_receive_count
+      - queue_with_custom_max_receive_count
+    - queue_project: project_with_custom_message_retention_period
+      queues:
+      - queue_with_project_message_retention_period
+      - queue_with_custom_message_retention_period
+  - name: topic_with_custom_raw_message
+    subscriptions:
+    - queue_project: project_with_custom_visibility_timeout
+      queues:
+      - queue_with_project_visibility_timeout
+      - queue_with_custom_visibility_timeout
