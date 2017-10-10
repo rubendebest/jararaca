@@ -4,7 +4,7 @@ Contributions to the Jararaca project
 Creator & Maintainer
 --------------------
 
-- Ruben de Best <rubendebest@kgmail.com> `@rubendebest <https://github.com/rubendebest>`_
+- Ruben de Best <rubendebest@gmail.com> `@rubendebest <https://github.com/rubendebest>`_
 
 
 Contributors
