@@ -33,6 +33,24 @@ Installation
     $ cd jararaca 
     $ pip3 install -Ur requirements.txt
 
+3. Configure your AWS account settings
+
+- Credentials ``~/.aws/credentials``:
+
+.. code-block:: ini
+
+    [default]
+    aws_access_key_id = YOUR_KEY
+    aws_secret_access_key = YOUR_SECRET
+
+- Default region ``~/.aws/config``:
+
+.. code-block:: ini
+
+    [default]
+    region=us-east-1
+
+
 Usage
 -----
 
@@ -55,6 +73,7 @@ References
 ----------
 
 -  `venv <https://docs.python.org/3/library/venv.html>`__
+- ` boto3 (the AWS SDK for Python) <https://boto3.readthedocs.io/en/latest/>`__
 -  `reStructuredText <http://docutils.sourceforge.net/rst.html>`__
 
 How to Contribute
